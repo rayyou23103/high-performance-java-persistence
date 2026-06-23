@@ -136,14 +136,33 @@ with the required *Oracle*, *SQL Server*, *PostgreSQL*, *MySQL*, *MariaDB*, *Yug
     You need to blank the dynamic TCP port value and configure the static TCP port 1433 for all IPs.
         
     Open SQL Server Management Studio and create the `high_performance_java_persistence` database
+
+### Docker setup (MySQL + PostgreSQL)
+
+The `build.bat` and `build.sh` scripts start Docker containers for MySQL and PostgreSQL automatically.
+
+This is useful for first-time project setup when local database servers are not installed.
+
+If you want to start or stop them manually, use:
+
+````
+docker compose up -d mysql postgres
+docker compose down
+````
     
 ## Maven
 
-> To build the project, don't use *install* or *package*. Instead, just compile test classes like this:
+> Before building the project, make sure Docker is installed and running. The build scripts will start MySQL and PostgreSQL containers automatically.
+
+If the database servers are not available, and the Docker service is not running, the build will fail with the following error message:
+
+````
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server
+````
+
+> To build the project, don't use *install* or *package*. Instead, just run the build script:
 >
->    mvnw clean test-compile
-    
-Or you can just run the `build.bat` or `build.sh` scripts which run the above Maven command.
+> build
     
 Afterward, just pick one test from the IDE and run it individually.
 
